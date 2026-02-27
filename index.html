@@ -1,0 +1,801 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.bot.ty0.icu/">
+      
+      
+      
+        <link rel="next" href="about/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>葱喵Bot文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="lime" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bot" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://docs.bot.ty0.icu" title="葱喵Bot文档" class="md-header__button md-logo" aria-label="葱喵Bot文档" data-md-component="logo">
+      
+  <img src="assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            葱喵Bot文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              葱喵Bot文档
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://docs.bot.ty0.icu" title="葱喵Bot文档" class="md-nav__button md-logo" aria-label="葱喵Bot文档" data-md-component="logo">
+      
+  <img src="assets/logo.png" alt="logo">
+
+    </a>
+    葱喵Bot文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    葱喵Bot文档
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    葱喵Bot文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        介绍
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        快速开始
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        音游功能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="音游功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        世界计划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        舞萌DX
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#osu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSU功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实用功能
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        娱乐功能
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        介绍
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        快速开始
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        音游功能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="音游功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        世界计划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        舞萌DX
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#osu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSU功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实用功能
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        娱乐功能
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bot">葱喵Bot文档</h1>
+<h2 id="_1">介绍</h2>
+<div align="center">
+<img src=/assets/idol.png width=50%>
+</div>
+<div align="center">
+<p1> ↑我推的孩子 </p1>
+</div>
+<blockquote>
+<p><em>你说得对，但是葱喵Bot是一款宇宙超级无敌下世代不知道为什么一次性部署了三个后端都要维护然后文档也要写三份的超级无敌可爱小偶像Bot</em></p>
+</blockquote>
+<p>亲爱的用户，欢迎你使用<em>葱喵Bot</em>！</p>
+<h2 id="_2">快速开始</h2>
+<p><strong>请注意！</strong></p>
+<p><strong>若未注明，则所有功能都需要添加命令头！</strong></p>
+<pre><code>可用命令头：“/”，&quot;#&quot;
+</code></pre>
+<h2 id="_3">音游功能</h2>
+<h3 id="_4">世界计划</h3>
+<blockquote>
+<p>葱喵Bot的世界计划相关功能由HarukiBot分布式提供，请移步到HarukiBot帮助页面查看帮助
+<a href="https://docs.haruki.seiunx.com/">HarukiBot帮助</a></p>
+</blockquote>
+<h3 id="dx">舞萌DX</h3>
+<blockquote>
+<p>参数组说明：<br/>
+<code>ver</code> 版本，可用dx或标准<br/>
+<code>diff</code> 难度，可用绿黄红紫白<br/>
+<code>rating</code> 谱面定数<br/>
+<code>level</code> 谱面等级<br/>
+<code>title</code> 曲目曲名<br/>
+<code>id</code> 谱面ID<br/>
+<code>alias</code> 别名<br/>
+<code>label</code> 投票标签<br/>
+<code>bpm</code> 节拍<br/>
+<code>min</code> 最小值<br/>
+<code>max</code> 最大值<br/>
+<code>name</code> 名字<br/>
+<code>score</code> 分数<br/>
+<code>@</code> 群员或玩家名称<br/>
+<code>player</code> 玩家名称<br/>
+<code>page</code> 页数<br/>
+<code>xxx</code> 随意文字<br/>
+<code>plate</code> 牌子或将牌<br/>
+<code>grade</code> 评价等级或fc，可用fc、ap、SSS、aaa等<br/>
+<code>plan</code> 进度，可用已完成、未完成、未游玩<br/></p>
+</blockquote>
+<ul>
+<li><code>今日舞萌</code> 今日舞萌运势<br/></li>
+<li><code>随个</code> 随机发送一个谱面<br/>
+  <code>参数：&lt;ver&gt; &lt;diff&gt; &lt;rating&gt;</code></li>
+<li><code>查歌</code> 曲名含该文字的曲目<br/>
+  <code>参数：[title]</code></li>
+<li><code>是什么歌</code> 查询该别名的曲目<br/>
+  <code>参数：[alias]</code></li>
+<li><code>有什么别名</code> 查询该曲目的所有别名<br/>
+  <code>参数：[id / alias / title]</code></li>
+<li><code>定数查歌</code> 使用定数查歌或定数的上限和下限查询<br/>
+  <code>参数：[rating] {page} / [min] [max]</code></li>
+<li><code>bpm查歌</code> 使用BPM查歌或BPM的上限和下限查询<br/>
+  <code>参数：[bpm] {page} / [min] [max]</code></li>
+<li><code>曲师查歌</code> 查询指定曲师的所有曲目<br/>
+  <code>参数：[name]</code></li>
+<li><code>谱师查歌</code> 查询指定谱师的所有曲目<br/>
+  <code>参数：[name]</code></li>
+<li><code>id</code> 查询乐曲信息或谱面信息<br/>
+  <code>参数：[id]</code></li>
+<li><code>分数线</code> 查询分数线，详细说明请发送[分数线 帮助]<br/>
+  <code>参数：[diff]+[id] [score]</code></li>
+<li><code>猜歌/猜曲绘</code> 猜歌游戏<br/></li>
+<li><code>mai猜歌</code> 开启或关闭猜歌功能<br/>
+  <code>参数：[on / off]</code></li>
+<li><code>重置猜歌</code> 重置当前猜歌进程<br/></li>
+<li><code>minfo</code> 查询指定曲目成绩<br/>
+  <code>参数：&lt;@&gt; [id/alias/title]</code></li>
+<li><code>ginfo</code> 查看指定曲目游玩总览，默认为紫谱<br/>
+  <code>参数：&lt;diff&gt; [id/alias/title]</code></li>
+<li><code>b50</code> 查询b50<br/>
+  <code>参数：&lt;@&gt;</code></li>
+<li><code>定数表</code> 查看指定等级定数表<br/>
+  <code>参数：[level]</code></li>
+<li><code>完成表</code> 查看指定等级游玩完成表<br/>
+  <code>参数：[level] &lt;grade&gt;</code></li>
+<li><code>查看排行</code> 使用页数或玩家名查看ra排行<br/>
+  <code>参数：[page/@]</code></li>
+<li><code>&lt;xxx&gt;mai&lt;xxxx&gt;什么</code> 随机一首歌，可带上分字样<br/>
+  <code>示例：今天mai出勤打什么分</code></li>
+<li><code>我要在[diff]上[score]分&lt;@&gt;</code> 推荐的上分乐曲<br/>
+  <code>示例：我要在13+上1分</code></li>
+<li><code>[plate]进度&lt;@&gt;&lt;page&gt;</code> 牌子完成进度<br/>
+  <code>示例：霸者进度 @柚子</code></li>
+<li><code>[rating][grade]&lt;plan&gt;进度&lt;@&gt;&lt;page&gt;</code> 等级评价完成进度<br/>
+  <code>示例：13+SSS进度 | 13+S已完成进度</code></li>
+<li><code>[rating]分数列表&lt;@&gt;</code> 等级分数列表<br/>
+  <code>示例：13+分数列表</code></li>
+</ul>
+<h3 id="osu">OSU功能</h3>
+<blockquote>
+<p>参数组说明：<br/>
+<code>OSU用户名</code> OSU游戏内的用户名<br/>
+<code>数字</code> 整数，用于指定排名或模式<br/>
+<code>mapid</code> 谱面ID<br/>
+<code>setid</code> 谱面集ID<br/>
+<code>速率</code> 倍速数值，例如 1.3<br/>
+<code>id</code> 用于管理拒绝更新背景的ID<br/></p>
+</blockquote>
+<ul>
+<li><code>bind OSU用户名</code> (绑定用户名)<br/>
+  <code>参数：[OSU用户名]
+  示例：/bind peppy</code></li>
+<li><code>info</code> (查询游玩信息)<br/></li>
+<li><code>pr, re</code> (查询最近成绩)<br/></li>
+<li><code>bp [数字]</code> (查询bp成绩)<br/>
+  <code>参数：[数字]
+  示例：/bp 5</code></li>
+<li><code>pfm [数字]-[数字]</code> (查询范围bp成绩)<br/>
+  <code>参数：[数字]-[数字]
+  示例：/pfm 5-10</code></li>
+<li><code>score [mapid]</code> (查询谱面成绩)<br/>
+  <code>参数：[mapid]
+  示例：/score 782309</code></li>
+<li><code>getbg [mapid]</code> (发送谱面BG)<br/>
+  <code>参数：[mapid]</code></li>
+<li><code>更新模式 [数字]</code> (更改默认模式)<br/>
+  <code>参数：[数字]
+  示例：/更新模式 2</code></li>
+<li>模式0-3分别表示std、taiko、catch、mania<br/></li>
+<li><code>update</code> (更新缓存头像)<br/></li>
+<li><code>推荐</code> (推荐pp图)<br/>
+  <code>参数：[id]</code></li>
+<li><code>map [mapid]</code> (查询单图信息)<br/>
+  <code>参数：[mapid]
+  示例：/map 782309</code></li>
+<li><code>bmap [setid]</code> (查询图组信息)<br/>
+  <code>参数：[setid]
+  示例：/bmap 355322</code></li>
+<li><code>tbp</code> (查询今日新增bp)<br/></li>
+<li><code>preview [mapid]</code> (预览mania谱面)<br/>
+  <code>参数：[mapid]
+  示例：/preview 3903979</code></li>
+<li><code>倍速 [setid] &lt;速率&gt;</code> (倍速mania谱面)<br/>
+  <code>参数：[setid] &lt;速率&gt;
+  示例：/倍速 1894409 1.3</code></li>
+<li><code>反键 [setid]</code> (反键mania谱面)<br/>
+  <code>参数：[setid]
+  示例：/反键 1894409</code></li>
+<li><code>osudl [setid]</code> (下载谱面传群)<br/>
+  <code>参数：[setid]
+  示例：/osudl 1894409</code></li>
+<li><code>convert --help</code> (mania谱面操作帮助)<br/></li>
+</ul>
+<h2 id="_5">实用功能</h2>
+<ul>
+<li><code>status</code> (查看Bot运行状态)<br/></li>
+<li><code>help</code> (获取Bot帮助信息)<br/></li>
+</ul>
+<h2 id="_6">娱乐功能</h2>
+<ul>
+<li><code>猜单词/wordle</code> 进行猜单词游戏</li>
+</ul>
+<pre><code>游戏介绍和功能介绍：
+绿色块代表此单词中有此字母且位置正确；
+黄色块代表此单词中有此字母，但该字母所处位置不对；
+黄色块的个数代表 此单词中有这个字母的数量 个数；
+灰色块代表此单词中没有此字母；
+猜出单词或用光次数则游戏结束。
+可发送“结束”结束游戏；可发送“提示”查看提示。
+可使用 -l / --length 指定单词长度，默认为 5
+可使用 -d / --dictionary 指定词典，默认为 CET4
+支持的词典：GRE、考研、GMAT、专四、TOEFL、SAT、专八、IELTS、CET4、CET6
+</code></pre>
+<ul>
+<li><code>猜成语/handle</code></li>
+</ul>
+<pre><code>子功能：
+结束/结束猜成语/结束游戏
+规则:
+你有十次的机会猜一个四字词语；
+每次猜测后，汉字与拼音的颜色将会标识其与正确答案的区别；
+汉字的右上角标的数字1、2、3、4分别对应一、二、三、四声；
+青色 表示其出现在答案中且在正确的位置；
+橙色 表示其出现在答案中但不在正确的位置，至多着色 **此单词中有这个字母的数量** 次；
+每个格子的 汉字、声母、韵母、声调 都会独立进行颜色的指示。
+当四个格子都为青色时，你便赢得了游戏！
+可发送“结束”结束游戏；可发送“提示”查看提示。
+使用 `--strict` 选项开启成语检查，即猜测的短语必须是成语，如：
+注：`--strict` 仅在 `handle_strict_mode` 被设置为 `False` 时生效。
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
