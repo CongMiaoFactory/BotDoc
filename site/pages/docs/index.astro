@@ -1,0 +1,506 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ChatBox from '../../components/ChatBox.astro';
+
+const docsContent = [
+  {
+    category: "世界计划",
+    items: []
+  },
+  {
+    category: "舞萌DX",
+    items: [
+      { cmd: "今日舞萌", desc: "今日舞萌运势", user: "/今日舞萌", bot: "由于你的运势不佳，建议今天打13+的绿谱" },
+      { cmd: "随个", desc: "随机发送一个谱面 (参数：<ver> <diff> <rating>)", user: "/随个 dx 紫 13", bot: "[随到的谱面信息]" },
+      { cmd: "查歌", desc: "曲名含该文字的曲目 (参数：[title])", user: "/查歌 潘多拉", bot: "为您找到以下曲目：..." },
+      { cmd: "是什么歌", desc: "查询该别名的曲目 (参数：[alias])", user: "/是什么歌 烤肉", bot: "您查询的歌曲是：..." },
+      { cmd: "有什么别名", desc: "查询该曲目的所有别名 (参数：[id/alias/title])", user: "/有什么别名 烤肉", bot: "该曲目的别名有：..." },
+      { cmd: "定数查歌", desc: "使用定数查歌或定数的上限和下限查询 (参数：[rating] {page} / [min] [max])", user: "/定数查歌 13.5 14.0", bot: "为您找到以下定数的曲目：..." },
+      { cmd: "bpm查歌", desc: "使用BPM查歌或查询上下限 (参数：[bpm] {page} / [min] [max])", user: "/bpm查歌 200", bot: "为您找到BPM为200的曲目：..." },
+      { cmd: "曲师查歌", desc: "查询指定曲师的所有曲目 (参数：[name])", user: "/曲师查歌 sasakure.UK", bot: "为您找到曲师的曲目：..." },
+      { cmd: "谱师查歌", desc: "查询指定谱师的所有曲目 (参数：[name])", user: "/谱师查歌 绿茶", bot: "为您找到谱师的曲目：..." },
+      { cmd: "id", desc: "查询乐曲信息或谱面信息 (参数：[id])", user: "/id 11111", bot: "曲目信息展示：..." },
+      { cmd: "分数线", desc: "查询分数线 (参数：[diff]+[id] [score])", user: "/分数线 紫11111 100.5", bot: "分数线信息展示..." },
+      { cmd: "猜歌/猜曲绘", desc: "猜歌游戏", user: "/猜歌", bot: "猜猜这是什么歌？[图片片段]" },
+      { cmd: "mai猜歌", desc: "开启或关闭猜歌功能 (参数：[on / off])", user: "/mai猜歌 on", bot: "已开启猜歌功能" },
+      { cmd: "重置猜歌", desc: "重置当前猜歌进程", user: "/重置猜歌", bot: "进程已重置" },
+      { cmd: "minfo", desc: "查询指定曲目成绩 (参数：<@> [id/alias/title])", user: "/minfo 烤肉", bot: "[游玩记录与成绩卡片]" },
+      { cmd: "ginfo", desc: "查看指定曲目游玩总览，默认为紫谱 (参数：<diff> [id/alias/title])", user: "/ginfo 烤肉", bot: "[游玩总览数据]" },
+      { cmd: "b50", desc: "查询b50 (参数：<@>)", user: "/b50", bot: "[B50成绩图]" },
+      { cmd: "定数表", desc: "查看指定等级定数表 (参数：[level])", user: "/定数表 13+", bot: "[13+的定数表]" },
+      { cmd: "完成表", desc: "查看指定等级游玩完成表 (参数：[level] <grade>)", user: "/完成表 13+ SSS", bot: "[完成表图示]" },
+      { cmd: "查看排行", desc: "使用页数或玩家名查看ra排行 (参数：[page/@])", user: "/查看排行 1", bot: "RA排行榜：<br/>1. xxx" },
+      { cmd: "<xxx>mai<xxxx>什么", desc: "随机一首歌，可带上分字样", user: "今天mai出勤打什么分", bot: "为您推荐：..." },
+      { cmd: "我要在上分", desc: "推荐的上分乐曲 (示例：我要在13+上1分)", user: "我要在13+上1分", bot: "推荐的上分目标为：..." },
+      { cmd: "牌子进度", desc: "牌子完成进度 (示例：霸者进度 @柚子)", user: "霸者进度", bot: "当前霸者完成进度呈现..." },
+      { cmd: "等级进度", desc: "等级评价完成进度 (示例：13+SSS进度)", user: "13+SSS进度", bot: "当前13+ SSS完成进度：..." },
+      { cmd: "分数列表", desc: "等级分数列表 (示例：13+分数列表)", user: "13+分数列表", bot: "分数列表生成中..." }
+    ]
+  },
+  {
+    category: "OSU功能",
+    items: [
+      { cmd: "bind", desc: "绑定OSU用户名 (参数：[OSU用户名])", user: "/bind peppy", bot: "绑定成功！" },
+      { cmd: "info", desc: "查询游玩信息", user: "/info", bot: "您的OSU游玩信息：" },
+      { cmd: "pr, re", desc: "查询最近成绩", user: "/pr", bot: "最近游玩记录：..." },
+      { cmd: "bp", desc: "查询bp成绩 (参数：[数字])", user: "/bp 5", bot: "您的第5高BP：..." },
+      { cmd: "pfm", desc: "查询范围bp成绩 (参数：[数字]-[数字])", user: "/pfm 5-10", bot: "您的第5到第10高的BP：..." },
+      { cmd: "score", desc: "查询谱面成绩 (参数：[mapid])", user: "/score 782309", bot: "在该谱面的成绩为：..." },
+      { cmd: "getbg", desc: "发送谱面BG (参数：[mapid])", user: "/getbg 782309", bot: "[谱面背景图]" },
+      { cmd: "更新模式", desc: "更改默认模式 (参数：[数字], 0-3分别为std,taiko,catch,mania)", user: "/更新模式 2", bot: "默认模式已更改" },
+      { cmd: "update", desc: "更新缓存头像", user: "/update", bot: "缓存已更新" },
+      { cmd: "推荐", desc: "推荐pp图 (参数：[id])", user: "/推荐 1", bot: "推荐的pp图：" },
+      { cmd: "map", desc: "查询单图信息 (参数：[mapid])", user: "/map 782309", bot: "单图信息：..." },
+      { cmd: "bmap", desc: "查询图组信息 (参数：[setid])", user: "/bmap 355322", bot: "图组信息：..." },
+      { cmd: "tbp", desc: "查询今日新增bp", user: "/tbp", bot: "今日新增的BP有：..." },
+      { cmd: "preview", desc: "预览mania谱面 (参数：[mapid])", user: "/preview 3903979", bot: "预览生成中..." },
+      { cmd: "倍速", desc: "倍速mania谱面 (参数：[setid] <速率>)", user: "/倍速 1894409 1.3", bot: "1.3x倍速谱面生成完成！" },
+      { cmd: "反键", desc: "反键mania谱面 (参数：[setid])", user: "/反键 1894409", bot: "反键谱面处理完成！" },
+      { cmd: "osudl", desc: "下载谱面传群 (参数：[setid])", user: "/osudl 1894409", bot: "谱面文件已发送" },
+      { cmd: "convert", desc: "mania谱面操作帮助", user: "/convert --help", bot: "帮助指南内容..." }
+    ]
+  },
+  {
+    category: "实用功能",
+    items: [
+      { cmd: "status", desc: "查看Bot运行状态", user: "/status", bot: "当前运行状态：良好" },
+      { cmd: "help", desc: "获取Bot帮助信息", user: "/help", bot: "请查看完整帮助文档..." }
+    ]
+  },
+  {
+    category: "娱乐功能",
+    items: [
+      { cmd: "猜单词/wordle", desc: "进行猜单词游戏 (-l 指定长度, -d 指定词典)", user: "/wordle", bot: "游戏开始！请猜测一个 5 字母单词。" },
+      { cmd: "猜成语/handle", desc: "结束游戏可发送'结束'，发送'提示'查看提示 (--strict 严格模式)", user: "/handle", bot: "猜成语游戏开始！请猜一个四字成语。" }
+    ]
+  }
+];
+---
+<DocsLayout frontmatter={{ title: "文档 - 葱喵工厂", description: "葱喵Bot功能文档，包含音游、实用、娱乐等功能的详细使用说明" }}>
+  <h1>葱喵工厂文档</h1>
+  
+  <div class="intro-box">
+    <img src="/assets/idol.png" class="intro-img" alt="葱喵" />
+    <p class="intro-caption"> ↑我推的孩子 </p>
+  </div>
+  <p>你说得对，但是葱喵Bot是一款宇宙超级无敌下世代不知道为什么一次性部署了三个后端都要维护然后文档也要写三份的超级无敌可爱小偶像Bot</p>
+  <p>亲爱的用户，欢迎你使用<em>葱喵Bot</em>！</p>
+
+  <h2 id="quick-start">功能速查</h2>
+  <div class="controls-container">
+    <div class="search-container">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="cmd-search" placeholder="输入你想找的功能 (例如: 猜歌, osu, 牌子进度) ..." class="search-input" />
+    </div>
+
+    <div class="category-filters" id="category-filters">
+      <button class="filter-btn active" data-filter="all">全部功能</button>
+      {docsContent.filter(c => c.items.length > 0).map(category => (
+        <button class="filter-btn" data-filter={category.category}>{category.category}</button>
+      ))}
+    </div>
+  </div>
+
+  <blockquote>
+    <p><strong>请注意！</strong><br/>若未注明，则所有功能都需要添加命令头！<br/><code>可用命令头：“/”，"#"</code></p>
+  </blockquote>
+
+  <div id="docs-content">
+    {docsContent.map(category => (
+      <div class="category-section" data-category={category.category}>
+        <div class="section-header">
+          <h3>{category.category}</h3>
+          <span class="item-count">{category.items.length} 个功能</span>
+        </div>
+        {category.category === "世界计划" && (
+          <div class="info-alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div class="alert-content">
+              葱喵Bot的“世界计划”相关功能由 HarukiBot 分布式提供，请移步到 <a href="https://docs.haruki.seiunx.com/" target="_blank">HarukiBot 帮助页面</a> 查看。
+            </div>
+          </div>
+        )}
+        {category.category === "舞萌DX" && (
+          <details class="param-accordion">
+            <summary>
+              <span class="summary-title">📘 舞萌DX 通用参数对照表 (点击展开查阅)</span>
+            </summary>
+            <div class="accordion-content param-grid">
+              <div class="param-item"><code>ver</code><span>版本 (dx/标准)</span></div>
+              <div class="param-item"><code>diff</code><span>难度 (绿黄红紫白)</span></div>
+              <div class="param-item"><code>rating</code><span>谱面定数</span></div>
+              <div class="param-item"><code>level</code><span>谱面等级</span></div>
+              <div class="param-item"><code>title</code><span>曲目片段</span></div>
+              <div class="param-item"><code>id</code><span>谱面ID</span></div>
+              <div class="param-item"><code>alias</code><span>曲目常见别名</span></div>
+              <div class="param-item"><code>label</code><span>标签</span></div>
+              <div class="param-item"><code>bpm</code><span>曲目节拍数</span></div>
+              <div class="param-item"><code>score</code><span>游玩分数</span></div>
+              <div class="param-item"><code>@</code><span>玩家名称 (@某人)</span></div>
+              <div class="param-item"><code>plate</code><span>牌子或将牌名称</span></div>
+              <div class="param-item"><code>grade</code><span>评价等级 (如 SSS, ap)</span></div>
+              <div class="param-item"><code>plan</code><span>游玩进度 (已完成/未游玩等)</span></div>
+            </div>
+          </details>
+        )}
+        {category.category === "OSU功能" && (
+          <details class="param-accordion">
+            <summary>
+              <span class="summary-title">📘 OSU! 通用参数对照表 (点击展开查阅)</span>
+            </summary>
+            <div class="accordion-content param-grid">
+              <div class="param-item"><code>用户名</code><span>OSU 游戏内的名称</span></div>
+              <div class="param-item"><code>数字</code><span>指定模式/排名序列</span></div>
+              <div class="param-item"><code>mapid</code><span>单曲谱面ID</span></div>
+              <div class="param-item"><code>setid</code><span>群组谱面集ID</span></div>
+              <div class="param-item"><code>速率</code><span>操作倍速数值 (如 1.3)</span></div>
+            </div>
+          </details>
+        )}
+        <div class="grid-container">
+          {category.items.map(item => (
+            <div class="doc-card" data-search={`${item.cmd.toLowerCase()} ${item.desc.toLowerCase()}`}>
+              <h4>{item.cmd}</h4>
+              <p class="desc">{item.desc}</p>
+              <ChatBox messages={[
+                { from: 'user', text: item.user },
+                { from: 'bot', text: item.bot }
+              ]} />
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div id="no-results" class="no-results" style="display: none;">
+    <div class="no-results-icon"> ( ˘･з･) </div>
+    <p>没有找到相关的功能呢，换个关键词试试吧？</p>
+  </div>
+</DocsLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById('cmd-search') as HTMLInputElement;
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.doc-card');
+    const sections = document.querySelectorAll('.category-section');
+    
+    let currentQuery = '';
+    let currentFilter = 'all';
+
+    function runFilter() {
+      let totalVisibleCards = 0;
+
+      // Filter cards within each section
+      sections.forEach(section => {
+        const sectionCategory = section.getAttribute('data-category');
+        const sectionCards = section.querySelectorAll('.doc-card');
+        
+        // Check if section matches category filter
+        const matchesFilter = currentFilter === 'all' || currentFilter === sectionCategory;
+        
+        let visibleCount = 0;
+        
+        sectionCards.forEach(card => {
+          const searchData = card.getAttribute('data-search') || '';
+          const matchesSearch = currentQuery === '' || searchData.includes(currentQuery);
+          
+          if (matchesFilter && matchesSearch) {
+            (card as HTMLElement).style.display = 'block';
+            visibleCount++;
+            totalVisibleCards++;
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+
+        // Hide section if it doesn't match filter OR has no visible cards when searching
+        const hasCards = sectionCards.length > 0;
+        if (!matchesFilter || (hasCards && visibleCount === 0 && currentQuery !== '')) {
+          (section as HTMLElement).style.display = 'none';
+        } else {
+          (section as HTMLElement).style.display = 'block';
+        }
+      });
+
+      const noResultsEl = document.getElementById('no-results');
+      if (noResultsEl) {
+        if (totalVisibleCards === 0 && currentQuery !== '') {
+          noResultsEl.style.display = 'flex';
+        } else {
+          noResultsEl.style.display = 'none';
+        }
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        runFilter();
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Update active class
+        filterBtns.forEach(b => b.classList.remove('active'));
+        (e.currentTarget as HTMLElement).classList.add('active');
+        
+        currentFilter = (e.currentTarget as HTMLElement).getAttribute('data-filter') || 'all';
+        runFilter();
+      });
+    });
+  });
+</script>
+
+<style>
+  .controls-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    margin: 24px 0 32px 0;
+    border: 1px solid #eef6e8;
+  }
+  .search-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #9ccc65;
+  }
+  .search-input {
+    width: 100%;
+    padding: 16px 20px 16px 48px;
+    font-size: 16px;
+    border: 2px solid #eef6e8;
+    border-radius: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fcfdfa;
+    color: #263238;
+  }
+  .search-input::placeholder {
+    color: #a0b2a6;
+  }
+  .search-input:focus {
+    border-color: #81c784;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(129, 199, 132, 0.15);
+  }
+  .no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 16px;
+    margin-top: 24px;
+    color: #90a4ae;
+    border: 2px dashed #eef6e8;
+  }
+  .no-results-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: #c5e1a5;
+  }
+  .intro-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .intro-img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .intro-caption {
+    margin-top: 12px;
+    color: #78909c;
+    font-size: 0.9rem;
+  }
+  .category-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #dcedc8;
+    background: #f7f9f2;
+    color: #558b2f;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter-btn:hover {
+    background: #e8f5e9;
+    border-color: #c5e1a5;
+  }
+  .filter-btn.active {
+    background: #4caf50;
+    color: #fff;
+    border-color: #4caf50;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+  }
+  .category-section {
+    margin-top: 40px;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px dashed #dcedc8;
+  }
+  .category-section h3 {
+    margin: 0;
+    color: #2e7d32;
+    font-size: 1.5rem;
+  }
+  .item-count {
+    background: #e8f5e9;
+    color: #388e3c;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  .info-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #e3f2fd;
+    border-left: 4px solid #42a5f5;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    color: #1565c0;
+    font-size: 0.95rem;
+  }
+  .info-alert svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .info-alert a {
+    color: #0d47a1;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .param-accordion {
+    margin-bottom: 24px;
+    background: #fff;
+    border: 1px solid #dcedc8;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .param-accordion summary {
+    padding: 16px 20px;
+    background: #fcfdfa;
+    cursor: pointer;
+    list-style: none; /* Hide default arrow */
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #424242;
+    user-select: none;
+    transition: background 0.2s ease;
+  }
+  .param-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+  .param-accordion summary:hover {
+    background: #f1f8e9;
+  }
+  .accordion-content {
+    border-top: 1px solid #dcedc8;
+    padding: 16px 20px;
+    background: #fff;
+  }
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .param-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #616161;
+  }
+  .param-item code {
+    background: #f5f5f5;
+    color: #c2185b;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: Consolas, monospace;
+    white-space: nowrap;
+  }
+  .grid-container {
+    column-count: 3;
+    column-gap: 24px;
+    margin-top: 20px;
+  }
+  @media (max-width: 1100px) {
+    .grid-container {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 768px) {
+    .grid-container {
+      column-count: 1;
+    }
+  }
+  .doc-card {
+    break-inside: avoid;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-color: #c5e1a5;
+  }
+  .doc-card h4 {
+    margin: 0 0 8px 0;
+    color: #2e7d32;
+    font-size: 1.15rem;
+    font-weight: bold;
+  }
+  .doc-card .desc {
+    font-size: 0.9rem;
+    color: #546e7a;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+  }
+</style>

@@ -1,0 +1,382 @@
+---
+const { frontmatter = {} } = Astro.props;
+const title = frontmatter.title ?? Astro.props.title ?? "葱喵工厂";
+const description = frontmatter.description ?? Astro.props.description ?? "葱喵工厂 - 文档与记录中心";
+const pathname = Astro.url.pathname;
+const icpText = "冀ICP备2026007090号-1";
+const icpHref = "https://beian.miit.gov.cn/";
+const psbText = "冀公网安备13040602000310号";
+const psbHref = "http://www.beian.gov.cn/portal/registerSystemInfo";
+const navItems = [
+  { href: "/", label: "首页" },
+  { href: "/docs/", label: "文档" },
+  { href: "/notes/", label: "记录" },
+  { href: "/about/", label: "关于" },
+  { href: "/terms/", label: "用户协议" },
+];
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <img src="/assets/logo.png" alt="葱喵工厂" />
+        <span>葱喵工厂</span>
+      </a>
+      <label for="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</label>
+      <nav>
+        {
+          navItems.map((item) => (
+            <a class={isActive(item.href) ? "active" : ""} href={item.href}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+
+    <input id="sidebar-toggle" class="sidebar-state" type="checkbox" />
+    <label for="sidebar-toggle" class="sidebar-overlay" aria-hidden="true"></label>
+
+    <div class="page-shell">
+      <aside class="global-sidebar">
+        <div class="sidebar-head">导航</div>
+        <nav class="sidebar-nav">
+          {
+            navItems.map((item) => (
+              <a class={isActive(item.href) ? "active" : ""} href={item.href}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </aside>
+
+      <main class="container markdown-body">
+        <slot />
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <a href={icpHref} target="_blank" rel="noopener noreferrer">{icpText}</a>
+      <span class="dot">|</span>
+      <a href={psbHref} target="_blank" rel="noopener noreferrer">
+        <img class="psb-icon" src="https://beian.mps.gov.cn/img/logo01.dd7ff50e.png" alt="公安备案" />
+        {psbText}
+      </a>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    overflow-x: hidden;
+  }
+
+  :global(body) {
+    margin: 0;
+    font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    color: #263238;
+    background: linear-gradient(180deg, #f7f9f2 0%, #eef6e8 100%);
+    min-height: 100vh;
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    border-bottom: 1px solid #d8e3cc;
+    background: rgb(247 249 242 / 90%);
+    backdrop-filter: blur(8px);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #2e7d32;
+    font-weight: 700;
+  }
+
+  .brand img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .site-header nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .site-header nav a {
+    color: #33691e;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  .site-header nav a.active,
+  .site-header nav a:hover {
+    background: #dcedc8;
+  }
+
+  .sidebar-state {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    display: none;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #2e7d32;
+    border: 1px solid #cddcba;
+    background: #f6f9f0;
+  }
+
+  .sidebar-overlay {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .page-shell {
+    width: min(1280px, 100%);
+    margin: 0 auto;
+    padding: 0 14px;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 18px;
+    flex: 1;
+  }
+
+  .global-sidebar {
+    position: sticky;
+    top: 74px;
+    align-self: start;
+    border: 1px solid #d8e3cc;
+    border-radius: 12px;
+    background: rgb(247 249 242 / 85%);
+    padding: 10px;
+  }
+
+  .sidebar-head {
+    font-weight: 700;
+    color: #2e7d32;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sidebar-nav a {
+    color: #33691e;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+
+  .sidebar-nav a.active,
+  .sidebar-nav a:hover {
+    background: #dcedc8;
+  }
+
+  .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 28px 18px 42px;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .site-footer {
+    border-top: 1px solid #e0e0e0;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 13px;
+    color: #607d8b;
+  }
+
+  .site-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .psb-icon {
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
+
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .dot {
+    margin: 0 8px;
+    color: #90a4ae;
+  }
+
+  :global(.markdown-body h1),
+  :global(.markdown-body h2),
+  :global(.markdown-body h3) {
+    color: #1b5e20;
+    line-height: 1.3;
+  }
+
+  :global(.markdown-body blockquote) {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-left: 4px solid #9ccc65;
+    background: #f2f8e8;
+  }
+
+  :global(.markdown-body code) {
+    font-family: Consolas, Monaco, monospace;
+    background: #edf4e2;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  :global(.markdown-body pre) {
+    padding: 12px;
+    background: #1f2937;
+    color: #e5e7eb;
+    border-radius: 10px;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  :global(.markdown-body pre code) {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  :global(.markdown-body img) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :global(.markdown-body table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  :global(.markdown-body div) {
+    max-width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .site-header nav {
+      display: none;
+    }
+
+    .sidebar-toggle {
+      display: inline-block;
+      margin-left: auto;
+    }
+
+    .page-shell {
+      grid-template-columns: 1fr;
+      padding: 0 10px;
+    }
+
+    .global-sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: min(82vw, 320px);
+      align-self: stretch;
+      border: none;
+      border-radius: 0;
+      z-index: 30;
+      transform: translateX(-100%);
+      transition: transform 0.2s ease;
+      padding-top: 72px;
+      background: #f7f9f2;
+      overflow-y: auto;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: rgb(0 0 0 / 36%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .sidebar-state:checked ~ .sidebar-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sidebar-state:checked ~ .page-shell .global-sidebar {
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .site-header {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .site-footer {
+      line-height: 1.9;
+    }
+
+    .dot {
+      display: none;
+    }
+
+    .site-footer a {
+      display: block;
+    }
+  }
+</style>
