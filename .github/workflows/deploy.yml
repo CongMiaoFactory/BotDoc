@@ -1,0 +1,35 @@
+name: Deploy Astro to Server
+
+on:
+  push:
+    branches:
+      - main # 目前你的最新分支已经是 main 了
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install & Build
+        run: |
+          bun install
+          bun run build
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_KEY }}
+          port: 22 # 如果服务器修改了 SSH 端口，请在这里调整
+          source: "dist/*"
+          target: "/var/www/CongMiaoFactory" # Caddy 服务器配置的网页根目录
+          strip_components: 1
