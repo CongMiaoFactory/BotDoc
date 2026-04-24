@@ -15,10 +15,6 @@ import DocsLayout from '../layouts/DocsLayout.astro';
     -->
 
     <form id="applyForm" class="apply-form">
-      <!-- Web3Forms Access Key -->
-      <input type="hidden" name="access_key" value="d3daab0d-49bf-49e7-bb08-8a56b391a727">
-      <!-- Honeypot 防机器人 -->
-      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
       
       <div class="form-group">
         <label for="contact">你的联系方式 (QQ号) <span class="required">*</span></label>
@@ -35,7 +31,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
         <select id="bot_choice" name="bot_choice" required>
           <option value="" disabled selected>请选择需要邀请的Bot</option>
           <option value="bot1">一号机 (仅包含 Haruki Neo 功能)</option>
-          <option value="bot2">二号机 (包含 Haruki V1、Maimai查询 及其他综合功能)</option>
+          <option value="bot2">二号机 (包含 Haruki Neo、Maimai查询 及其他综合功能)</option>
         </select>
       </div>
 
@@ -97,7 +93,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
         result.innerHTML = "⏳ 正在发送请求...";
         result.className = "result-message info";
 
-        fetch('https://api.web3forms.com/submit', {
+        fetch('https://tgbot2.hyw.mom/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
