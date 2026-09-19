@@ -4,79 +4,83 @@ import ChatBox from '../../components/ChatBox.astro';
 
 const docsContent = [
   {
-    category: "世界计划",
-    items: []
+    category: "通用",
+    items: [
+      { cmd: "help / 帮助 / 菜单", desc: "打开帮助图（与站点文档互补）", user: "#help", bot: "[帮助图]" },
+      { cmd: "hello", desc: "打招呼测试", user: "#hello", bot: "你好~" },
+      { cmd: "peek / 偷看 / 看电脑", desc: "电脑截图 + CPU/内存/前台/媒体（需 peek_server）", user: "#peek", bot: "[截图 + 状态]" },
+      { cmd: "ping / 状态 / 运行状态", desc: "WinUI3 风格运行状态图（CPU/内存/磁盘/网络/进程）", user: "#ping", bot: "[状态图]" },
+    ]
+  },
+  {
+    category: "叉出去",
+    items: [
+      { cmd: "x / 叉出去 / 叉", desc: "回复或 @ 某人生成表情包", user: "#x（回复一条消息）", bot: "[叉出去图]" },
+      { cmd: "x 查询 / x stats", desc: "使用统计；可带用户 id", user: "#x 查询", bot: "使用次数：..." },
+    ]
+  },
+  {
+    category: "Steam",
+    items: [
+      { cmd: "steamhelp / steam帮助", desc: "Steam 插件帮助", user: "#steamhelp", bot: "..." },
+      { cmd: "steambind / 绑定steam", desc: "绑定 Steam ID 或好友代码", user: "#steambind 7656…", bot: "已绑定…" },
+      { cmd: "steamunbind / 解绑steam", desc: "解绑 Steam", user: "#steamunbind", bot: "已解绑" },
+      { cmd: "steaminfo / steam信息", desc: "个人主页图；可 @ 他人", user: "#steaminfo", bot: "[主页图]" },
+      { cmd: "steamcheck / 查看steam / 查steam", desc: "查看群内已绑定好友状态", user: "#steamcheck", bot: "[好友状态]" },
+      { cmd: "steamenable / steamdisable", desc: "开关本群 Steam 上下线播报", user: "#steamenable", bot: "已启用" },
+      { cmd: "steamupdate / 更新群信息", desc: "更新群展示信息（可带名称/图片）", user: "#steamupdate", bot: "已更新" },
+      { cmd: "steamnickname / steam昵称", desc: "设置玩家昵称", user: "#steamnickname 葱喵", bot: "昵称已设置" },
+    ]
+  },
+  {
+    category: "DJMAX",
+    items: [
+      { cmd: "djmax help", desc: "V-Archive 查分帮助", user: "#djmax help", bot: "…" },
+      { cmd: "djmax bind / unbind", desc: "绑定 / 解绑 V-Archive ID", user: "#djmax bind YourID", bot: "绑定成功" },
+      { cmd: "djmax b100", desc: "B100 出图；可省略已绑定 ID；键数如 4", user: "#djmax b100 4", bot: "[B100 图]" },
+      { cmd: "djmax list", desc: "分表；键数 + 等级（sc 前缀表示 SC）", user: "#djmax list 4 15", bot: "[分表图]" },
+      { cmd: "djmax pack / new / pp / max", desc: "曲包 / 新曲 / PP / MAX 相关出图", user: "#djmax max 4", bot: "[图]" },
+      { cmd: "djmax listdlc", desc: "曲包代码列表", user: "#djmax listdlc", bot: "曲包代码：…" },
+    ]
   },
   {
     category: "舞萌DX",
     items: [
-      { cmd: "今日舞萌", desc: "今日舞萌运势", user: "/今日舞萌", bot: "由于你的运势不佳，建议今天打13+的绿谱" },
-      { cmd: "随个", desc: "随机发送一个谱面 (参数：<ver> <diff> <rating>)", user: "/随个 dx 紫 13", bot: "[随到的谱面信息]" },
-      { cmd: "查歌", desc: "曲名含该文字的曲目 (参数：[title])", user: "/查歌 潘多拉", bot: "为您找到以下曲目：..." },
-      { cmd: "是什么歌", desc: "查询该别名的曲目 (参数：[alias])", user: "/是什么歌 烤肉", bot: "您查询的歌曲是：..." },
-      { cmd: "有什么别名", desc: "查询该曲目的所有别名 (参数：[id/alias/title])", user: "/有什么别名 烤肉", bot: "该曲目的别名有：..." },
-      { cmd: "定数查歌", desc: "使用定数查歌或定数的上限和下限查询 (参数：[rating] {page} / [min] [max])", user: "/定数查歌 13.5 14.0", bot: "为您找到以下定数的曲目：..." },
-      { cmd: "bpm查歌", desc: "使用BPM查歌或查询上下限 (参数：[bpm] {page} / [min] [max])", user: "/bpm查歌 200", bot: "为您找到BPM为200的曲目：..." },
-      { cmd: "曲师查歌", desc: "查询指定曲师的所有曲目 (参数：[name])", user: "/曲师查歌 sasakure.UK", bot: "为您找到曲师的曲目：..." },
-      { cmd: "谱师查歌", desc: "查询指定谱师的所有曲目 (参数：[name])", user: "/谱师查歌 绿茶", bot: "为您找到谱师的曲目：..." },
-      { cmd: "id", desc: "查询乐曲信息或谱面信息 (参数：[id])", user: "/id 11111", bot: "曲目信息展示：..." },
-      { cmd: "分数线", desc: "查询分数线 (参数：[diff]+[id] [score])", user: "/分数线 紫11111 100.5", bot: "分数线信息展示..." },
-      { cmd: "猜歌/猜曲绘", desc: "猜歌游戏", user: "/猜歌", bot: "猜猜这是什么歌？[图片片段]" },
-      { cmd: "mai猜歌", desc: "开启或关闭猜歌功能 (参数：[on / off])", user: "/mai猜歌 on", bot: "已开启猜歌功能" },
-      { cmd: "重置猜歌", desc: "重置当前猜歌进程", user: "/重置猜歌", bot: "进程已重置" },
-      { cmd: "minfo", desc: "查询指定曲目成绩 (参数：<@> [id/alias/title])", user: "/minfo 烤肉", bot: "[游玩记录与成绩卡片]" },
-      { cmd: "ginfo", desc: "查看指定曲目游玩总览，默认为紫谱 (参数：<diff> [id/alias/title])", user: "/ginfo 烤肉", bot: "[游玩总览数据]" },
-      { cmd: "b50", desc: "查询b50 (参数：<@>)", user: "/b50", bot: "[B50成绩图]" },
-      { cmd: "定数表", desc: "查看指定等级定数表 (参数：[level])", user: "/定数表 13+", bot: "[13+的定数表]" },
-      { cmd: "完成表", desc: "查看指定等级游玩完成表 (参数：[level] <grade>)", user: "/完成表 13+ SSS", bot: "[完成表图示]" },
-      { cmd: "查看排行", desc: "使用页数或玩家名查看ra排行 (参数：[page/@])", user: "/查看排行 1", bot: "RA排行榜：<br/>1. xxx" },
-      { cmd: "<xxx>mai<xxxx>什么", desc: "随机一首歌，可带上分字样", user: "今天mai出勤打什么分", bot: "为您推荐：..." },
-      { cmd: "我要在上分", desc: "推荐的上分乐曲 (示例：我要在13+上1分)", user: "我要在13+上1分", bot: "推荐的上分目标为：..." },
-      { cmd: "牌子进度", desc: "牌子完成进度 (示例：霸者进度 @柚子)", user: "霸者进度", bot: "当前霸者完成进度呈现..." },
-      { cmd: "等级进度", desc: "等级评价完成进度 (示例：13+SSS进度)", user: "13+SSS进度", bot: "当前13+ SSS完成进度：..." },
-      { cmd: "分数列表", desc: "等级分数列表 (示例：13+分数列表)", user: "13+分数列表", bot: "分数列表生成中..." }
+      { cmd: "dfbind / 绑定水鱼 / 绑定df", desc: "水鱼 OAuth：发授权链接，仅原用户回复该消息粘贴授权码", user: "#dfbind → 打开链接授权 → 回复粘码", bot: "授权完成。" },
+      { cmd: "lxbind / 绑定落雪 / 绑定lx", desc: "落雪 OAuth（可选；当前以水鱼为主）。同样需回复粘码", user: "#lxbind", bot: "授权完成。 / 或提示无成绩" },
+      { cmd: "数据源", desc: "切换数据源：0=Diving-Fish（水鱼），1=Lxns（落雪）", user: "#数据源 0", bot: "已切换数据源为：「Diving-Fish」" },
+      { cmd: "主题", desc: "切换出图主题：0=prism_plus，1=circle", user: "#主题 1", bot: "已切换主题为：「circle」" },
+      { cmd: "帮助maimaiDX", desc: "maimai 详细帮助图", user: "#帮助maimaiDX", bot: "[帮助图]" },
+      { cmd: "b50", desc: "B50 图。公开接口即可；完整成绩/牌子等需先 #dfbind", user: "#b50", bot: "[B50 图]" },
+      { cmd: "ap50", desc: "AP50（仅落雪数据源；水鱼会提示不支持）", user: "#ap50", bot: "[AP50 图] 或「仅落雪查分器支持AP50指令」" },
+      { cmd: "info / minfo", desc: "指定曲目个人成绩（id / 别名 / 曲名；可 @）", user: "#info 烤肉", bot: "[成绩卡]" },
+      { cmd: "ginfo", desc: "曲目游玩总览，默认紫谱；可带难度", user: "#ginfo 烤肉", bot: "[总览]" },
+      { cmd: "分数线", desc: "分数线查询（难度色+id + 达成率）", user: "#分数线 紫11111 100.5", bot: "…" },
+      { cmd: "查看排名", desc: "水鱼公开 RA 排行（页码）", user: "#查看排名 1", bot: "…" },
+      { cmd: "我的排名", desc: "查看自己在公开榜的位置", user: "#我的排名", bot: "…" },
+      { cmd: "查歌", desc: "曲名模糊搜歌", user: "#查歌 潘多拉", bot: "为您找到…" },
+      { cmd: "定数/bpm/曲师/谱师查歌", desc: "按定数、BPM、曲师、谱师搜歌", user: "#定数查歌 13.5 14.0", bot: "…" },
+      { cmd: "xxx是什么歌", desc: "别名反查曲目；可带页码", user: "#烤肉是什么歌", bot: "…" },
+      { cmd: "有什么别名", desc: "查询曲目别名（id/别名/曲名）", user: "#烤肉有什么别名", bot: "…" },
+      { cmd: "id <数字>", desc: "乐曲 / 谱面信息", user: "#id 11111", bot: "[曲目信息]" },
+      { cmd: "随个 / 来个 / 给个", desc: "随机谱面；可带 dx|sd、绿黄红紫白、等级", user: "#随个 dx 紫 13", bot: "[谱面]" },
+      { cmd: "今日舞萌", desc: "今日运势推荐", user: "#今日舞萌", bot: "…" },
+      { cmd: "…mai…什么", desc: "随机推歌（自然语言，仍需 #/^ 前缀）", user: "#今天mai出勤打什么", bot: "推荐：…" },
+      { cmd: "我要在…上分", desc: "上分推荐（如 我要在13+上1分）", user: "#我要在13+上1分", bot: "推荐：…" },
+      { cmd: "<等级>定数表", desc: "定数表（约 lv7–15）", user: "#13+定数表", bot: "[定数表]" },
+      { cmd: "<等级>[评价]完成表", desc: "等级完成表；可带 s+/ap/fc 等（需授权）", user: "#13+SSS完成表", bot: "[完成表]" },
+      { cmd: "牌子条件", desc: "各牌子达成条件说明", user: "#牌子条件", bot: "…" },
+      { cmd: "<牌子>完成表 / 进度", desc: "牌子完成表或进度（真超檄…镜等；需 #dfbind）", user: "#霸者进度", bot: "[进度图]" },
+      { cmd: "<等级><评价>进度", desc: "等级评价进度", user: "#13+SSS进度", bot: "[进度]" },
+      { cmd: "<定数>分数列表", desc: "定数分数列表", user: "#13.5分数列表", bot: "[列表]" },
+      { cmd: "猜歌 / 猜曲绘", desc: "猜歌游戏（猜答案消息无需命令前缀）", user: "#猜歌", bot: "[片段]" },
+      { cmd: "开启mai猜歌 / 关闭mai猜歌", desc: "群开关（管理员）", user: "#开启mai猜歌", bot: "已开启" },
+      { cmd: "重置猜歌", desc: "重置本群猜歌（管理员）", user: "#重置猜歌", bot: "已重置" },
     ]
   },
-  {
-    category: "OSU功能",
-    items: [
-      { cmd: "bind", desc: "绑定OSU用户名 (参数：[OSU用户名])", user: "/bind peppy", bot: "绑定成功！" },
-      { cmd: "info", desc: "查询游玩信息", user: "/info", bot: "您的OSU游玩信息：" },
-      { cmd: "pr, re", desc: "查询最近成绩", user: "/pr", bot: "最近游玩记录：..." },
-      { cmd: "bp", desc: "查询bp成绩 (参数：[数字])", user: "/bp 5", bot: "您的第5高BP：..." },
-      { cmd: "pfm", desc: "查询范围bp成绩 (参数：[数字]-[数字])", user: "/pfm 5-10", bot: "您的第5到第10高的BP：..." },
-      { cmd: "score", desc: "查询谱面成绩 (参数：[mapid])", user: "/score 782309", bot: "在该谱面的成绩为：..." },
-      { cmd: "getbg", desc: "发送谱面BG (参数：[mapid])", user: "/getbg 782309", bot: "[谱面背景图]" },
-      { cmd: "更新模式", desc: "更改默认模式 (参数：[数字], 0-3分别为std,taiko,catch,mania)", user: "/更新模式 2", bot: "默认模式已更改" },
-      { cmd: "update", desc: "更新缓存头像", user: "/update", bot: "缓存已更新" },
-      { cmd: "推荐", desc: "推荐pp图 (参数：[id])", user: "/推荐 1", bot: "推荐的pp图：" },
-      { cmd: "map", desc: "查询单图信息 (参数：[mapid])", user: "/map 782309", bot: "单图信息：..." },
-      { cmd: "bmap", desc: "查询图组信息 (参数：[setid])", user: "/bmap 355322", bot: "图组信息：..." },
-      { cmd: "tbp", desc: "查询今日新增bp", user: "/tbp", bot: "今日新增的BP有：..." },
-      { cmd: "preview", desc: "预览mania谱面 (参数：[mapid])", user: "/preview 3903979", bot: "预览生成中..." },
-      { cmd: "倍速", desc: "倍速mania谱面 (参数：[setid] <速率>)", user: "/倍速 1894409 1.3", bot: "1.3x倍速谱面生成完成！" },
-      { cmd: "反键", desc: "反键mania谱面 (参数：[setid])", user: "/反键 1894409", bot: "反键谱面处理完成！" },
-      { cmd: "osudl", desc: "下载谱面传群 (参数：[setid])", user: "/osudl 1894409", bot: "谱面文件已发送" },
-      { cmd: "convert", desc: "mania谱面操作帮助", user: "/convert --help", bot: "帮助指南内容..." }
-    ]
-  },
-  {
-    category: "实用功能",
-    items: [
-      { cmd: "status", desc: "查看Bot运行状态", user: "/status", bot: "当前运行状态：良好" },
-      { cmd: "help", desc: "获取Bot帮助信息", user: "/help", bot: "请查看完整帮助文档..." }
-    ]
-  },
-  {
-    category: "娱乐功能",
-    items: [
-      { cmd: "猜单词/wordle", desc: "进行猜单词游戏 (-l 指定长度, -d 指定词典)", user: "/wordle", bot: "游戏开始！请猜测一个 5 字母单词。" },
-      { cmd: "猜成语/handle", desc: "结束游戏可发送'结束'，发送'提示'查看提示 (--strict 严格模式)", user: "/handle", bot: "猜成语游戏开始！请猜一个四字成语。" }
-    ]
-  }
 ];
 ---
-<DocsLayout frontmatter={{ title: "文档 - 葱喵工厂", description: "葱喵Bot功能文档，包含音游、实用、娱乐等功能的详细使用说明" }}>
+<DocsLayout frontmatter={{ title: "文档 - 葱喵工厂", description: "葱喵Bot（Entari）功能文档：通用、叉出去、Steam、DJMAX、舞萌DX" }}>
   <h1>葱喵工厂文档</h1>
   
   <div class="intro-box">
@@ -93,7 +97,7 @@ const docsContent = [
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="cmd-search" placeholder="输入你想找的功能 (例如: 猜歌, osu, 牌子进度) ..." class="search-input" />
+      <input type="text" id="cmd-search" placeholder="输入你想找的功能 (例如: b50, steam, 猜歌, 牌子进度) ..." class="search-input" />
     </div>
 
     <div class="category-filters" id="category-filters">
@@ -105,7 +109,7 @@ const docsContent = [
   </div>
 
   <blockquote>
-    <p><strong>请注意！</strong><br/>若未注明，则所有功能都需要添加命令头！<br/><code>可用命令头：“/”，"#"</code></p>
+    <p><strong>请注意！</strong><br/>若未注明，则所有功能都需要添加命令头！<br/><code>可用命令头：“#”，“^”</code></p>
   </blockquote>
 
   <div id="docs-content">
@@ -115,16 +119,6 @@ const docsContent = [
           <h3>{category.category}</h3>
           <span class="item-count">{category.items.length} 个功能</span>
         </div>
-        {category.category === "世界计划" && (
-          <div class="info-alert">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            <div class="alert-content">
-              葱喵Bot的“世界计划”相关功能由 HarukiBot 分布式提供，请移步到 <a href="https://neo.haruki.seiunx.com/" target="_blank">HarukiBot 帮助页面</a> 查看。
-            </div>
-          </div>
-        )}
         {category.category === "舞萌DX" && (
           <details class="param-accordion">
             <summary>
@@ -145,20 +139,6 @@ const docsContent = [
               <div class="param-item"><code>plate</code><span>牌子或将牌名称</span></div>
               <div class="param-item"><code>grade</code><span>评价等级 (如 SSS, ap)</span></div>
               <div class="param-item"><code>plan</code><span>游玩进度 (已完成/未游玩等)</span></div>
-            </div>
-          </details>
-        )}
-        {category.category === "OSU功能" && (
-          <details class="param-accordion">
-            <summary>
-              <span class="summary-title">📘 OSU! 通用参数对照表 (点击展开查阅)</span>
-            </summary>
-            <div class="accordion-content param-grid">
-              <div class="param-item"><code>用户名</code><span>OSU 游戏内的名称</span></div>
-              <div class="param-item"><code>数字</code><span>指定模式/排名序列</span></div>
-              <div class="param-item"><code>mapid</code><span>单曲谱面ID</span></div>
-              <div class="param-item"><code>setid</code><span>群组谱面集ID</span></div>
-              <div class="param-item"><code>速率</code><span>操作倍速数值 (如 1.3)</span></div>
             </div>
           </details>
         )}
