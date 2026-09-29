@@ -1,86 +1,10 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import ChatBox from '../../components/ChatBox.astro';
+import commandCatalog from '../../data/entari-commands.json';
 
-const docsContent = [
-  {
-    category: "通用",
-    items: [
-      { cmd: "help / 帮助 / 菜单", desc: "打开帮助图（与站点文档互补）", user: "#help", bot: "[帮助图]" },
-      { cmd: "hello", desc: "打招呼测试", user: "#hello", bot: "你好~" },
-      { cmd: "peek / 偷看 / 看电脑", desc: "电脑截图 + CPU/内存/前台/媒体（需 peek_server）", user: "#peek", bot: "[截图 + 状态]" },
-      { cmd: "ping / 状态 / 运行状态", desc: "WinUI3 风格运行状态图（CPU/内存/磁盘/网络/进程）", user: "#ping", bot: "[状态图]" },
-    ]
-  },
-  {
-    category: "叉出去",
-    items: [
-      { cmd: "x / 叉出去 / 叉", desc: "回复或 @ 某人生成表情包", user: "#x（回复一条消息）", bot: "[叉出去图]" },
-      { cmd: "x 查询 / x stats", desc: "使用统计；可带用户 id", user: "#x 查询", bot: "使用次数：..." },
-    ]
-  },
-  {
-    category: "Steam",
-    items: [
-      { cmd: "steamhelp / steam帮助", desc: "Steam 插件帮助", user: "#steamhelp", bot: "..." },
-      { cmd: "steambind / 绑定steam", desc: "绑定 Steam ID 或好友代码", user: "#steambind 7656…", bot: "已绑定…" },
-      { cmd: "steamunbind / 解绑steam", desc: "解绑 Steam", user: "#steamunbind", bot: "已解绑" },
-      { cmd: "steaminfo / steam信息", desc: "个人主页图；可 @ 他人", user: "#steaminfo", bot: "[主页图]" },
-      { cmd: "steamcheck / 查看steam / 查steam", desc: "查看群内已绑定好友状态", user: "#steamcheck", bot: "[好友状态]" },
-      { cmd: "steamenable / steamdisable", desc: "开关本群 Steam 上下线播报", user: "#steamenable", bot: "已启用" },
-      { cmd: "steamupdate / 更新群信息", desc: "更新群展示信息（可带名称/图片）", user: "#steamupdate", bot: "已更新" },
-      { cmd: "steamnickname / steam昵称", desc: "设置玩家昵称", user: "#steamnickname 葱喵", bot: "昵称已设置" },
-    ]
-  },
-  {
-    category: "DJMAX",
-    items: [
-      { cmd: "djmax help", desc: "V-Archive 查分帮助", user: "#djmax help", bot: "…" },
-      { cmd: "djmax bind / unbind", desc: "绑定 / 解绑 V-Archive ID", user: "#djmax bind YourID", bot: "绑定成功" },
-      { cmd: "djmax b100", desc: "B100 出图；可省略已绑定 ID；键数如 4", user: "#djmax b100 4", bot: "[B100 图]" },
-      { cmd: "djmax list", desc: "分表；键数 + 等级（sc 前缀表示 SC）", user: "#djmax list 4 15", bot: "[分表图]" },
-      { cmd: "djmax pack / new / pp / max", desc: "曲包 / 新曲 / PP / MAX 相关出图", user: "#djmax max 4", bot: "[图]" },
-      { cmd: "djmax listdlc", desc: "曲包代码列表", user: "#djmax listdlc", bot: "曲包代码：…" },
-    ]
-  },
-  {
-    category: "舞萌DX",
-    items: [
-      { cmd: "dfbind / 绑定水鱼 / 绑定df", desc: "水鱼 OAuth：发授权链接，仅原用户回复该消息粘贴授权码", user: "#dfbind → 打开链接授权 → 回复粘码", bot: "授权完成。" },
-      { cmd: "lxbind / 绑定落雪 / 绑定lx", desc: "落雪 OAuth（可选；当前以水鱼为主）。同样需回复粘码", user: "#lxbind", bot: "授权完成。 / 或提示无成绩" },
-      { cmd: "数据源", desc: "切换数据源：0=Diving-Fish（水鱼），1=Lxns（落雪）", user: "#数据源 0", bot: "已切换数据源为：「Diving-Fish」" },
-      { cmd: "主题", desc: "切换出图主题：0=prism_plus，1=circle", user: "#主题 1", bot: "已切换主题为：「circle」" },
-      { cmd: "帮助maimaiDX", desc: "maimai 详细帮助图", user: "#帮助maimaiDX", bot: "[帮助图]" },
-      { cmd: "b50", desc: "B50 图。公开接口即可；完整成绩/牌子等需先 #dfbind", user: "#b50", bot: "[B50 图]" },
-      { cmd: "ap50", desc: "AP50（仅落雪数据源；水鱼会提示不支持）", user: "#ap50", bot: "[AP50 图] 或「仅落雪查分器支持AP50指令」" },
-      { cmd: "info / minfo", desc: "指定曲目个人成绩（id / 别名 / 曲名；可 @）", user: "#info 烤肉", bot: "[成绩卡]" },
-      { cmd: "ginfo", desc: "曲目游玩总览，默认紫谱；可带难度", user: "#ginfo 烤肉", bot: "[总览]" },
-      { cmd: "分数线", desc: "分数线查询（难度色+id + 达成率）", user: "#分数线 紫11111 100.5", bot: "…" },
-      { cmd: "查看排名", desc: "水鱼公开 RA 排行（页码）", user: "#查看排名 1", bot: "…" },
-      { cmd: "我的排名", desc: "查看自己在公开榜的位置", user: "#我的排名", bot: "…" },
-      { cmd: "查歌", desc: "曲名模糊搜歌", user: "#查歌 潘多拉", bot: "为您找到…" },
-      { cmd: "定数/bpm/曲师/谱师查歌", desc: "按定数、BPM、曲师、谱师搜歌", user: "#定数查歌 13.5 14.0", bot: "…" },
-      { cmd: "xxx是什么歌", desc: "别名反查曲目；可带页码", user: "#烤肉是什么歌", bot: "…" },
-      { cmd: "有什么别名", desc: "查询曲目别名（id/别名/曲名）", user: "#烤肉有什么别名", bot: "…" },
-      { cmd: "id <数字>", desc: "乐曲 / 谱面信息", user: "#id 11111", bot: "[曲目信息]" },
-      { cmd: "随个 / 来个 / 给个", desc: "随机谱面；可带 dx|sd、绿黄红紫白、等级", user: "#随个 dx 紫 13", bot: "[谱面]" },
-      { cmd: "今日舞萌", desc: "今日运势推荐", user: "#今日舞萌", bot: "…" },
-      { cmd: "…mai…什么", desc: "随机推歌（自然语言，仍需 #/^ 前缀）", user: "#今天mai出勤打什么", bot: "推荐：…" },
-      { cmd: "我要在…上分", desc: "上分推荐（如 我要在13+上1分）", user: "#我要在13+上1分", bot: "推荐：…" },
-      { cmd: "<等级>定数表", desc: "定数表（约 lv7–15）", user: "#13+定数表", bot: "[定数表]" },
-      { cmd: "<等级>[评价]完成表", desc: "等级完成表；可带 s+/ap/fc 等（需授权）", user: "#13+SSS完成表", bot: "[完成表]" },
-      { cmd: "牌子条件", desc: "各牌子达成条件说明", user: "#牌子条件", bot: "…" },
-      { cmd: "<牌子>完成表 / 进度", desc: "牌子完成表或进度（真超檄…镜等；需 #dfbind）", user: "#霸者进度", bot: "[进度图]" },
-      { cmd: "<等级><评价>进度", desc: "等级评价进度", user: "#13+SSS进度", bot: "[进度]" },
-      { cmd: "<定数>分数列表", desc: "定数分数列表", user: "#13.5分数列表", bot: "[列表]" },
-      { cmd: "猜歌 / 猜曲绘", desc: "猜歌游戏（猜答案消息无需命令前缀）", user: "#猜歌", bot: "[片段]" },
-      { cmd: "开启mai猜歌 / 关闭mai猜歌", desc: "群开关（管理员）", user: "#开启mai猜歌", bot: "已开启" },
-      { cmd: "重置猜歌", desc: "重置本群猜歌（管理员）", user: "#重置猜歌", bot: "已重置" },
-    ]
-  },
-];
+const docsContent = commandCatalog;
 ---
-<DocsLayout frontmatter={{ title: "文档 - 葱喵工厂", description: "葱喵Bot（Entari）功能文档：通用、叉出去、Steam、DJMAX、舞萌DX" }}>
+<DocsLayout frontmatter={{ title: "文档 - 葱喵工厂", description: "葱喵Bot Entari 后端完整命令目录：音游、天气、Steam、游戏与咖啡店" }}>
   <h1>葱喵工厂文档</h1>
   
   <div class="intro-box">
@@ -89,7 +13,7 @@ const docsContent = [
   </div>
   <p>你说得对，但是葱喵Bot是一款宇宙超级无敌下世代不知道为什么一次性部署了三个后端都要维护然后文档也要写三份的超级无敌可爱小偶像Bot</p>
   <p>亲爱的用户，欢迎你使用<em>葱喵Bot</em>！</p>
-  <p>Entari 后端近期更新了命令与音游图片：<a href="/notes/entari-2026-09-29/">查看 2026-09-29 更新说明</a>。完整可复制命令见 <a href="https://github.com/YoisakiKnd/entari/blob/main/COMMANDS.md">Entari 命令清单</a>。</p>
+  <p>下面列出 Entari 后端当前实现的 16 个模块、122 条命令。线上实际可用模块以 Bot 的 <code>#help 列表</code> 为准。<a href="/notes/entari-2026-09-29/">查看 2026-09-29 更新说明</a>；需要复制原始文字清单，可打开 <a href="https://github.com/YoisakiKnd/entari/blob/main/COMMANDS.md">Entari 命令清单</a>。</p>
 
   <h2 id="quick-start">功能速查</h2>
   <div class="controls-container">
@@ -120,38 +44,11 @@ const docsContent = [
           <h3>{category.category}</h3>
           <span class="item-count">{category.items.length} 个功能</span>
         </div>
-        {category.category === "舞萌DX" && (
-          <details class="param-accordion">
-            <summary>
-              <span class="summary-title">📘 舞萌DX 通用参数对照表 (点击展开查阅)</span>
-            </summary>
-            <div class="accordion-content param-grid">
-              <div class="param-item"><code>ver</code><span>版本 (dx/标准)</span></div>
-              <div class="param-item"><code>diff</code><span>难度 (绿黄红紫白)</span></div>
-              <div class="param-item"><code>rating</code><span>谱面定数</span></div>
-              <div class="param-item"><code>level</code><span>谱面等级</span></div>
-              <div class="param-item"><code>title</code><span>曲目片段</span></div>
-              <div class="param-item"><code>id</code><span>谱面ID</span></div>
-              <div class="param-item"><code>alias</code><span>曲目常见别名</span></div>
-              <div class="param-item"><code>label</code><span>标签</span></div>
-              <div class="param-item"><code>bpm</code><span>曲目节拍数</span></div>
-              <div class="param-item"><code>score</code><span>游玩分数</span></div>
-              <div class="param-item"><code>@</code><span>玩家名称 (@某人)</span></div>
-              <div class="param-item"><code>plate</code><span>牌子或将牌名称</span></div>
-              <div class="param-item"><code>grade</code><span>评价等级 (如 SSS, ap)</span></div>
-              <div class="param-item"><code>plan</code><span>游玩进度 (已完成/未游玩等)</span></div>
-            </div>
-          </details>
-        )}
         <div class="grid-container">
           {category.items.map(item => (
             <div class="doc-card" data-search={`${item.cmd.toLowerCase()} ${item.desc.toLowerCase()}`}>
               <h4>{item.cmd}</h4>
               <p class="desc">{item.desc}</p>
-              <ChatBox messages={[
-                { from: 'user', text: item.user },
-                { from: 'bot', text: item.bot }
-              ]} />
             </div>
           ))}
         </div>
